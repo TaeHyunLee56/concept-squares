@@ -26,9 +26,9 @@ function Header() {
   return (
     <>
       <Wrapper>
-        <HeaderTitle onClick={()=>{setIsIdeaMode(false); setIsLinkMode(false);}} >Concept-Squares</HeaderTitle>
+        <HeaderTitle onClick={()=>{setIsIdeaMode(false); setIsLinkMode(false);}} >ConceptSquares</HeaderTitle>
         <img
-          src={process.env.PUBLIC_URL + "/icons/key.png"}
+          src={"/icons/key.png"}
           width="24px"
           style={{ cursor: "pointer" }}
           onClick={() => setIsModalOpen(true)}
