@@ -26,7 +26,7 @@ function Header() {
   return (
     <>
       <Wrapper>
-        <HeaderTitle onClick={()=>{setIsIdeaMode(false); setIsLinkMode(false);}} >ConceptSquares</HeaderTitle>
+        <HeaderTitle onClick={()=>{setIsIdeaMode(false); setIsLinkMode(false);}} >Concept-Squares</HeaderTitle>
         <img
           src={process.env.PUBLIC_URL + "/icons/key.png"}
           width="24px"
