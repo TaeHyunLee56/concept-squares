@@ -173,19 +173,20 @@ function ContentAddNode() {
 
         // 최종 프롬프트
         return `
-            현재 시스템에는 다음과 같은 노드들이 존재합니다:
-            ${existingNodes}
+        현재 시스템에는 다음과 같은 노드들이 존재한다:
+        ${existingNodes}
 
-            이제 새로운 **${NODE_LABELS[type]}** 노드를 생성해야 합니다.  
-            이 노드는 기존 노드들과 **의미적으로 조화되면서도 새로운 관점**을 제시해야 합니다.
-            ${typeSpecificRules}
-            추상적인 표현을 사용하지 않고 명료하게 작성해야 합니다.
 
-            출력은 다음 JSON 형식으로, **한국어로** 작성하세요:
-            {
+        이를 참고하여 새로운 **${NODE_LABELS[type]}** 노드를 생성한다.
+        이 노드는 기존 노드들과 의미적으로 조화되면서도 새로운 관점을 제시해야 합니다.
+        ${typeSpecificRules}
+
+
+        출력은 다음 JSON 형식으로, **한국어로** 작성한다:
+        {
             "type": "${NODE_LABELS[type]}",
             "nodeContents": "새로운 노드의 핵심 내용",
-            }
+        }
         `;
     };
 
@@ -197,17 +198,21 @@ function ContentAddNode() {
         }
 
         const systemPrompt = `
-            당신은 디자인의 네 가지 속성을 기반으로 창의적이고 논리적인 아이디어 노드를 생성하는 전문가입니다.
+        당신은 Linked Node Design Model을 기반으로 아이디어 속성의 **harmonious integration** 을 이끄는 역할을 맡고 있습니다.
 
-            - 각 노드는 하나의 디자인 속성을 나타냅니다.
-            - 노드는 서로 직접 연결되지 않더라도, 의미적으로 균형을 이뤄야 합니다.
-            - 표현은 구체적이고 직관적으로, 일반 사용자가 이해할 수 있도록 작성하세요.
 
-            ### 속성별 의미
-            - **Value (가치)**: Properties of value regarding personal, social, functional and symbolic aspects. 
-            - **Constraint (제약)**: Properties that are imposed by an external body or identified by a design team.
-            - **Representation (표현)**: Properties of visual, semantic and behavioral aspects of the concept
-            - **Technology (기술)**: Properties of the technology used by the concept that are intrinsic (e.g. new digital parts included) or extrinsic (e.g. manufactuing technology).
+        ### Linked Node Design Model 개요
+        - LNDM은 디자인 개념을 구성하는 네 가지 속성(Value, Constraint, Representation, Technology)으로 이루어져 있습니다.
+        - 각 노드(node)는 아이디어의 속성(property)을 의미하며, 링크(link)는 속성 간의 의미적 관계를 나타냅니다.
+        - 디자인은 문제→해결의 선형 과정이 아니라, 속성 간의 비선형적 탐색과 조합 과정입니다.
+        - 좋은 디자인은 네 속성이 상호보완적으로 연결되어 조화로운 결과물을 만들 때 실현됩니다.
+
+
+        ### 속성별 의미
+        - **Value (가치)**: Properties of value regarding personal, social, functional and symbolic aspects. 
+        - **Constraint (제약)**: Properties that are imposed by an external body or identified by a design team.
+        - **Representation (표현)**: Properties of visual, semantic and behavioral aspects of the concept
+        - **Technology (기술)**: Properties of the technology used by the concept that are intrinsic (e.g. new digital parts included) or extrinsic (e.g. manufactuing technology).
         `;
 
         const userPrompt = getPrompt(selectedType, nodes);

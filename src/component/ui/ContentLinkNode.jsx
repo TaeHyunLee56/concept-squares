@@ -235,16 +235,18 @@ function ContentLinkNode() {
 
         return `
             아래 JSON은 현재 아이디어와 연결된 노드의 상태를 보여준다.
-            이를 참고하여 새로운 **${NODE_KEYS[type]}** 노드를 생성해라.
-            추상적인 표현을 사용하지 않고 명료하게 작성한다.
+            ${JSON.stringify(contextData, null, 2)}
+                            
+                            
+            이를 참고하여 새로운 **${NODE_KEYS[type]}** 노드를 생성한다.
+            이 노드는 기존 노드들과 의미적으로 조화되면서도 새로운 관점을 제시해야 합니다.
             ${typeSpecificRules}
 
-            ${JSON.stringify(contextData, null, 2)}
 
             출력은 다음 형식의 JSON으로 **한국어로** 작성한다:
             {
-            "type": "${NODE_KEYS[type]}",
-            "nodeContents": "노드 내용 설명",
+                "type": "${NODE_KEYS[type]}",
+                "nodeContents": "새로운 노드의 핵심 내용",
             }
         `;
     };
@@ -371,18 +373,18 @@ function ContentLinkNode() {
             : "{\n  // 모든 필드가 이미 작성되어 있습니다.\n}";
 
         // 프롬프트 본문
-        return `
-            아래는 Linked Node Design Model(LNDM)의 각 노드와 현재 아이디어의 상태를 나타내는 JSON이다.
-            이 정보를 참고하여 아이디어의 핵심 구조 (Title, Subtitle, Description, Key Features)를 완성한다.
-
+            return `
+            아래는 JSON은 현재 아이디어와 연결된 노드의 상태를 보여준다.
             ${JSON.stringify(contextData, null, 2)}
-
-            규칙:
+                            
+                            
+            이를 참고하여 아이디어의 핵심 컨셉
+            (Title, Subtitle, Description, Key  Features)을 완성한다.
             - 이미 작성된 필드는 유지하고, 비어 있는 필드만 새로 채운다.
-            - Value, Constraint, Representation, Technology의 4가지 속성이 조화를 이룰 수 있는 아이디어를 제시한다.
-            - 모호한 표현을 삼가하고 구체적이고 명료하게 작성한다.
-
-            출력은 다음 JSON 형식으로 **한국어로** 작성한다.:
+            - 4가지 속성이 조화를 이룰 수 있는 아이디어를 제시한다.
+            
+            
+            출력은 다음 JSON 형식으로 **한국어로** 작성한다:
             ${exampleJSON}
         `;
     };
@@ -408,15 +410,23 @@ function ContentLinkNode() {
 
         // System Prompt
         const systemPrompt = `
-            당신은 Linked Node Design Model을 기반으로, 네 가지 속성의 의미적 관계를 해석하여
-            디자인 아이디어를 제안하는 역할을 맡고 있습니다.
+            당신은 Linked Node Design Model을 기반으로 아이디어 속성의 **harmonious integration** 을 이끄는 역할을 맡고 있습니다.
+
 
             ### Linked Node Design Model 개요
             - LNDM은 디자인 개념을 구성하는 네 가지 속성(Value, Constraint, Representation, Technology)으로 이루어져 있습니다.
             - 각 노드(node)는 아이디어의 속성(property)을 의미하며, 링크(link)는 속성 간의 의미적 관계를 나타냅니다.
             - 디자인은 문제→해결의 선형 과정이 아니라, 속성 간의 비선형적 탐색과 조합 과정입니다.
             - 좋은 디자인은 네 속성이 상호보완적으로 연결되어 조화로운 결과물을 만들 때 실현됩니다.
+
+
+            ### 속성별 의미
+            - **Value (가치)**: Properties of value regarding personal, social, functional and symbolic aspects. 
+            - **Constraint (제약)**: Properties that are imposed by an external body or identified by a design team.
+            - **Representation (표현)**: Properties of visual, semantic and behavioral aspects of the concept
+            - **Technology (기술)**: Properties of the technology used by the concept that are intrinsic (e.g. new digital parts included) or extrinsic (e.g. manufactuing technology).
         `;
+
 
         // User Prompt (비어 있는 필드만 예시로 표시됨)
         const userPrompt = getExpandedPrompt(
