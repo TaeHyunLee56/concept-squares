@@ -373,7 +373,7 @@ function ContentLinkNode() {
             : "{\n  // 모든 필드가 이미 작성되어 있습니다.\n}";
 
         // 프롬프트 본문
-            return `
+        return `
             아래는 JSON은 현재 아이디어와 연결된 노드의 상태를 보여준다.
             ${JSON.stringify(contextData, null, 2)}
                             

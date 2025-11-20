@@ -230,6 +230,15 @@ const handleUpdateIdea = () => {
   setSelectedIdea(null); // 리스트로 복귀
 };
 
+const handleDeleteIdea = () => {
+  const confirmDelete = window.confirm("Are you sure you want to delete this idea?");
+  if (!confirmDelete) return;
+
+  setSavedIdea((prev) => prev.filter((i) => i.id !== idea.id));
+  alert("Deleted!");
+  setSelectedIdea(null); // 리스트로 복귀
+}
+
   return (
     <Wrapper>
       <TitleContainer>
@@ -237,7 +246,10 @@ const handleUpdateIdea = () => {
           <img src={process.env.PUBLIC_URL + "/icons/back.png"} alt="back" width="20px" onClick={() => {setSelectedIdea(null); setSelectedLink(null);}} />
           <Title>Edit Idea</Title>
         </div>
-        <StyledButton onClick={handleUpdateIdea}>Update</StyledButton>
+        <div style={{display: "flex", flexDirection: "row", gap: "8px", alignItems: "center"}}>
+          <StyledButton onClick={handleDeleteIdea}>Delete</StyledButton>
+          <StyledButton onClick={handleUpdateIdea}>Update</StyledButton>
+        </div>
       </TitleContainer>
 
       <ContentContainer>
