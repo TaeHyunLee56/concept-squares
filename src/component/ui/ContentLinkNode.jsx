@@ -1,7 +1,28 @@
 import React, { useState, useContext } from "react";
-import styled, { css } from "styled-components";
+import styled, { keyframes, css } from "styled-components";
 import { NodeContext } from "../page/MainPage";
 import { ApiKeyContext } from "../../ApiKeyContext";
+
+
+const NODE_DATA = {
+    green: { text: "Value", color: "#00A746" },
+    yellow: { text: "Constraint", color: "#FFB800" },
+    red: { text: "Representation", color: "#FD4A52" },
+    blue: { text: "Technology", color: "#00A7EE" },
+};
+const NODE_POSITIONS = [
+    "top: 0; left: 0;",
+    "top: 0; right: 0;",
+    "bottom: 0; left: 0;",
+    "bottom: 0; right: 0;",
+];
+const arrowPositions = [
+    { bottom: "20px", right: "20px", transform: "rotate(0deg)" }, // 위 → 아래(중앙 향함)
+    { left: "20px", bottom: "20px", transform: "rotate(90deg)" }, // 오른쪽 → 왼쪽
+    { top: "20px", right: "20px", transform: "rotate(270deg)" }, // 아래 → 위
+    { left: "20px", top: "20px", transform: "rotate(180deg)" }, // 왼쪽 → 오른쪽
+];
+
 
 const Wrapper = styled.div`
     width: 100%;
@@ -175,6 +196,45 @@ const SmallButton = styled.button`
   padding: 2px 8px;
   opacity: 0.5;
 `;
+const pulse = keyframes`
+  0% { opacity: 0.1; }
+  50% { opacity: 0.4; }
+  100% { opacity: 0.1; }
+`;
+
+const Arrow1 = styled.img`
+  user-select: none;
+  width: 28px;
+  height: 28px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  /* 펼쳐진 상태면 안 보임 */
+  opacity: ${({ expanded }) => (expanded ? 0 : 0.8)};
+
+  /* 접혀있을 때만 투명도 반복 애니메이션 */
+  ${({ expanded }) =>
+    !expanded &&
+    css`
+      animation: ${pulse} 2s ease-in-out infinite;
+    `}
+`;
+const Arrow2 = styled.img`
+  width: 16px;
+  height: 16px;
+  position: absolute;
+  cursor: pointer;
+  transition: transform 0.25s ease;
+
+  ${({ index }) => arrowPositions[index]}
+
+  ${css`
+      animation: ${pulse} 2s ease-in-out infinite;
+    `}
+`;
+
 
 function ContentLinkNode() {
     const { 
@@ -189,18 +249,7 @@ function ContentLinkNode() {
     const [generatedText, setGeneratedText] = useState(null);
     const [loadingType, setLoadingType] = useState(null);
 
-    const NODE_DATA = {
-        green: { text: "Value", color: "#00A746" },
-        yellow: { text: "Constraint", color: "#FFB800" },
-        red: { text: "Representation", color: "#FD4A52" },
-        blue: { text: "Technology", color: "#00A7EE" },
-    };
-    const NODE_POSITIONS = [
-        "top: 0; left: 0;",
-        "top: 0; right: 0;",
-        "bottom: 0; left: 0;",
-        "bottom: 0; right: 0;",
-    ];
+
 
 
 
@@ -574,7 +623,9 @@ function ContentLinkNode() {
 
                 {expanded &&
                     NODE_POSITIONS.map((pos, i) => (
-                        <CornerBox key={i} position={pos} onClick={() => setExpanded(false)} />
+                        <CornerBox key={i} position={pos} onClick={() => setExpanded(false)}>
+                            <Arrow2 src="/icons/arrow2.png" alt="Collapse Icon" index={i}/>
+                         </CornerBox>
                     ))
                 }
 
@@ -582,6 +633,8 @@ function ContentLinkNode() {
                     {Object.entries(NODE_DATA).map(([key, { color }], index) => (
                         <NodeIcon key={key} color={color} position={NODE_POSITIONS[index]} />
                     ))}
+
+                    <Arrow1 src="/icons/arrow1.png" alt="Expand Icon" expanded={expanded} />
 
                     {expanded ? (
                         <>
