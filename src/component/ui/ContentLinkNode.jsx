@@ -81,7 +81,7 @@ const Contents = styled.div`
     flex-direction: column;
     justify-content: space-between;
     gap: 12px;
-    min-height: 268px;
+    min-height: 200px;
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
@@ -169,7 +169,7 @@ const StyledTextarea = styled.textarea`
     &::-webkit-scrollbar { display: none; }
 `;
 const StyledTextarea2 = styled(StyledTextarea)`
-    min-height: 80px;
+    min-height: 60px;
 `;
 const TextareaContainer = styled.div`
     display: flex;
@@ -180,7 +180,7 @@ const TextareaContainer = styled.div`
 const StyledDiv = styled.div`
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 8px;
     background: none;
 `;
 const StyledP = styled.p`

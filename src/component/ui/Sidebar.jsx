@@ -18,8 +18,6 @@ const Wrapper = styled.div`
 const NodeBoard = styled.div`
     width: 172px;
     height: 100%;
-    // max-height: 600px;
-    // min-height: 432px;
     display: flex;
     gap: 20px;
 `;
